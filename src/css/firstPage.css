@@ -1,0 +1,125 @@
+body {
+  font-family: Arial;
+  height: 1000px;
+  background-color: lightblue;
+}
+.bluePrint {
+  background-color: rgb(32, 33, 36);
+  height: 726px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.firstsectionBP,
+.secondsectionBP,
+.thirdsectionBP,
+.fourthsectionBP {
+  background-color: #fff;
+  border: 1px solid rgb(218, 220, 224);
+  border-radius: 8px;
+  margin-top: 12px;
+  height: 182px;
+  display: flex;
+  flex-direction: column;
+}
+.head {
+  background-color: rgb(66, 133, 244);
+  color: rgba(0, 0, 0, 1);
+  height: 10px;
+  /* position: absolute; */
+  top: -1px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+.information {
+  border-top: 1px solid rgb(218, 220, 224);
+  border-bottom: 1px solid rgb(218, 220, 224);
+}
+.emailInformation {
+  margin-left: 10px;
+  display: inline-block;
+}
+.required {
+  color: rgb(217, 48, 37);
+  padding-left: 10px;
+}
+.email {
+  padding-left: 10px;
+}
+.specialStar {
+  color: rgb(217, 48, 37);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.inputContainer {
+  position: relative;
+  width: 300px;
+}
+
+.inputEmail {
+  width: 100%;
+  padding: 10px;
+  padding-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid rgb(218, 220, 224);
+  font-size: 15px;
+  outline: none;
+}
+
+.inputEmail::placeholder {
+  font-size: 15px;
+}
+
+.inputContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: blue;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s ease-out, background-color 0.3s ease;
+}
+
+.inputContainer.active::after,
+.inputContainer.invalid::after {
+  transform: scaleX(1);
+}
+
+.inputContainer.invalid::after {
+  background-color: red;
+}
+
+.inputEmail:focus {
+  border-bottom-color: transparent;
+}
+
+.errorMessage {
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.errorMessage::before {
+  content: '! ';
+  color: red;
+  font-weight: bold;
+}
+
+.inputContainer.invalid + .errorMessage {
+  display: block;
+}

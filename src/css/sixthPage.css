@@ -1,0 +1,61 @@
+body {
+  font-family: Arial;
+  height: 1500px;
+  background-color: lightblue;
+}
+.bluePrint {
+  background-color: rgb(32, 33, 36);
+  height: 1000px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.firstsectionBP,
+.secondsectionBP {
+  background-color: #fff;
+  border: 1px solid rgb(218, 220, 224);
+  border-radius: 8px;
+  margin-top: 12px;
+  height: 182px;
+  display: flex;
+  flex-direction: column;
+}
+.head {
+  background-color: rgb(66, 133, 244);
+  color: rgba(0, 0, 0, 1);
+  height: 10px;
+  top: -1px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.information {
+  border-top: 1px solid rgb(218, 220, 224);
+  border-bottom: 1px solid rgb(218, 220, 224);
+}
+.emailInformation {
+  margin-left: 10px;
+  display: inline-block;
+}
+.required {
+  color: rgb(217, 48, 37);
+  padding-left: 10px;
+}
+
+.specialStar {
+  color: rgb(217, 48, 37);
+}
+
+.question {
+  padding-left: 10px;
+}
+
+.situation {
+  padding-left: 10px;
+}

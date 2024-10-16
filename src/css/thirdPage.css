@@ -1,0 +1,178 @@
+body {
+  font-family: Arial;
+  height: 1500px;
+  background-color: lightblue;
+}
+.bluePrint {
+  background-color: rgb(32, 33, 36);
+  height: 1000px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+.firstsectionBP,
+.secondsectionBP,
+.thirdsectionBP {
+  background-color: #fff;
+  border: 1px solid rgb(218, 220, 224);
+  border-radius: 8px;
+  margin-top: 12px;
+  height: 182px;
+  display: flex;
+  flex-direction: column;
+}
+.head {
+  background-color: rgb(66, 133, 244);
+  color: rgba(0, 0, 0, 1);
+  height: 10px;
+  top: -1px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.information {
+  border-top: 1px solid rgb(218, 220, 224);
+  border-bottom: 1px solid rgb(218, 220, 224);
+}
+.emailInformation {
+  margin-left: 10px;
+  display: inline-block;
+}
+.required {
+  color: rgb(217, 48, 37);
+  padding-left: 10px;
+}
+
+.specialStar {
+  color: rgb(217, 48, 37);
+}
+
+.date {
+  padding-left: 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.inputContainer {
+  position: relative;
+  width: 300px;
+  margin-left: 10px;
+}
+
+.inputDate {
+  width: 100%;
+
+  padding-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid rgb(218, 220, 224);
+  font-size: 15px;
+  outline: none;
+}
+
+.inputDate::placeholder {
+  font-size: 15px;
+}
+
+.inputContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: blue;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s ease-out, background-color 0.3s ease;
+}
+
+.inputContainer.active::after,
+.inputContainer.invalid::after {
+  transform: scaleX(1);
+}
+
+.inputContainer.invalid::after {
+  background-color: red;
+}
+
+.inputDate:focus {
+  border-bottom-color: transparent;
+}
+
+.errorMessage {
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.errorMessage::before {
+  content: '! ';
+  color: red;
+  font-weight: bold;
+}
+
+.inputContainer.invalid + .errorMessage {
+  display: block;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #f9f9f9;
+  color: black;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding-left: 10px;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.search-box {
+  padding: 10px;
+  width: calc(100% - 16px);
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.nationality {
+  padding-left: 10px;
+}
