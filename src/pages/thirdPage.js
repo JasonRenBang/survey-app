@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import '../css/thirdPage.css'
 import { formDataStore } from '../formDataStore'
+import { useNavigate } from 'react-router-dom'
 
 function ThirdPage () {
   const [formData, setFormData] = useState(formDataStore.thirdForm)
-
+  const [specifiedNationality, setSpecifiedNationality] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
     })
+  }
+  const handleOtherInputChange = (e) => {
+    const { value } = e.target
+    setSpecifiedNationality(value)
   }
 
   const handleDropdownChange = (name, value) => {
@@ -63,22 +68,55 @@ function ThirdPage () {
 
   const selectOption = (e, name, value) => {
     e.preventDefault()
-    handleDropdownChange(name, value)
+    if (value === 'Other') {
+      setFormData({
+        ...formData,
+        [name]: 'Other'
+      })
+      document.querySelector('.other-input').style.display = 'block'
+    } else {
+      handleDropdownChange(name, value)
+      document.querySelector('.other-input').style.display = 'none'
+      setSpecifiedNationality('')
+    }
+
     const dropdownContent = e.target.closest('.dropdown-content')
     dropdownContent.classList.remove('show')
   }
 
-  const filteredCountries = [
-    'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'The Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo, Democratic Republic of the', 'Congo, Republic of the', 'Costa Rica', 'Côte d’Ivoire', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'East Timor (Timor-Leste)', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'The Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, North', 'Korea, South', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia, Federated States of', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar (Burma)', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'Spain', 'Sri Lanka', 'Sudan', 'Sudan, South', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
+  const filteredCountries = ['Other',
+    'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda',
+    'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'The Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cambodia', 'Cameroon', 'Canada', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo, Democratic Republic of the', 'Congo, Republic of the', 'Costa Rica', 'Côte d’Ivoire', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'East Timor (Timor-Leste)', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'The Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Korea, North', 'Korea, South', 'Kosovo', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia, Federated States of', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar (Burma)', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Macedonia', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'Spain', 'Sri Lanka', 'Sudan', 'Sudan, South', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
   ].filter((country) => country.toLowerCase().includes(searchTerm))
 
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (e.target.checkValidity()) {
+      setFormData({
+        ...formData,
+        nationality: formData.nationality === 'Other' && specifiedNationality ? specifiedNationality : formData.nationality
+      })
+      formDataStore.thirdForm = formData
+      console.log(formDataStore.thirdForm)
+      navigate('/forthPage')
+    } else {
+      const firstInvalidElement = e.target.querySelector(':invalid')
+      if (firstInvalidElement) {
+        firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        firstInvalidElement.focus()
+      }
+    }
+  }
   return (
-    <div className="bluePrint">
+    <form className="bluePrint" onSubmit={handleSubmit}>
       <div className="firstsectionBP">
         <div className="head"></div>
         <div className="title">Contact Form</div>
         <div className="information">
-          <p className="emailInformation">xxx@gamil.com</p>
+          <p className="emailInformation">Welcome to VicWise</p>
         </div>
         <div>
           <p className="required">* Indicates required question</p>
@@ -104,7 +142,7 @@ function ThirdPage () {
       <div className="thirdsectionBP">
         <p className="nationality">Nationality<span className="specialStar">*</span></p>
         <div className="dropdown">
-          <button className="dropbtn" onClick={toggleDropdown}>
+          <button type="button" className="dropbtn" onClick={toggleDropdown}>
             {formData.nationality || 'Choose ▾'}
           </button>
           <div className="myDropdown dropdown-content">
@@ -120,9 +158,21 @@ function ThirdPage () {
             ))}
           </div>
         </div>
+        <input
+          type="text"
+          placeholder="Please specify your nationality"
+          className="other-input"
+          style={{ display: formData.nationality === 'Other' ? 'block' : 'none' }}
+          value={specifiedNationality}
+          onChange={handleOtherInputChange}
+        />
       </div>
-    </div>
+      <div className="buttonContainer">
+        <button type='submit'>Next</button>
+      </div>
+    </form>
   )
 }
 
 export default ThirdPage
+

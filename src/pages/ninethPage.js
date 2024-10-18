@@ -1,7 +1,9 @@
 import React from 'react'
 import '../css/ninethPage.css'
+import { formDataStore } from '../formDataStore'
 
 function NinethPage () {
+  console.log(formDataStore)
   return (
     <div className="bluePrint">
       <div className="firstsectionBP">

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../css/firstPage.css'
 import { formDataStore } from '../formDataStore'
 
 function FirstPage () {
   const [formData, setFormData] = useState(formDataStore.firstForm)
 
+  const navigate = useNavigate()
   useEffect(() => {
     const inputEmails = document.querySelectorAll('.inputEmail')
     const inputContainers = document.querySelectorAll('.inputContainer')
@@ -47,14 +49,28 @@ function FirstPage () {
       [name]: value,
     })
   }
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
+    if (e.target.checkValidity()) {
+      formDataStore.firstForm = formData
+      console.log(formDataStore.firstForm)
+      navigate('/secondPage')
+    } else {
+      const firstInvalidElement = e.target.querySelector(':invalid')
+      if (firstInvalidElement) {
+        firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        firstInvalidElement.focus()
+      }
+    }
+  }
   return (
-    <div className="bluePrint">
+    <form className="bluePrint" onSubmit={handleSubmit}>
       <div className="firstsectionBP">
         <div className="head"></div>
         <div className="title">Contact Form</div>
         <div className="information">
-          <p className="emailInformation">xxx@gamil.com </p>
+          <p className="emailInformation">Welcome to VicWise </p>
         </div>
         <div>
           <p className="required">* Indicates required question</p>
@@ -106,7 +122,11 @@ function FirstPage () {
         </div>
         <span className="errorMessage">* This is required input.</span>
       </div>
-    </div>
+
+      <div className="buttonContainer">
+        <button type='submit'>Next</button>
+      </div>
+    </form>
   )
 }
 

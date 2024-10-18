@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import '../css/fifthPage.css'
 import { formDataStore } from '../formDataStore'
+import { useNavigate } from 'react-router-dom'
 function FifthPage () {
   const [formData, setFormData] = useState(formDataStore.fifthForm)
   const [searchTerm, setSearchTerm] = useState('')
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -23,7 +24,25 @@ function FifthPage () {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
+  const handleNavigation = () => {
 
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (e.target.checkValidity()) {
+      formDataStore.fifthForm = formData
+      console.log(formDataStore.fifthForm)
+      navigate('/sixthPage')
+    } else {
+      const firstInvalidElement = e.target.querySelector(':invalid')
+      if (firstInvalidElement) {
+        firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        firstInvalidElement.focus()
+      }
+    }
+  }
   useEffect(() => {
     const inputAddresses = document.querySelectorAll('.inputAddress')
     const inputContainers = document.querySelectorAll('.inputContainer')
@@ -82,12 +101,12 @@ function FifthPage () {
   ].filter((option) => option.toLowerCase().includes(searchTerm))
 
   return (
-    <div className="bluePrint">
+    <form className="bluePrint" onSubmit={handleSubmit}>
       <div className="firstsectionBP">
         <div className="head"></div>
         <div className="title">Contact Form</div>
         <div className="information">
-          <p className="emailInformation">xxx@gamil.com</p>
+          <p className="emailInformation">Welcome to VicWise</p>
         </div>
         <div>
           <p className="required">* Indicates required question</p>
@@ -125,7 +144,7 @@ function FifthPage () {
       <div className="fourthsectionBP">
         <p className="address">State<span className="specialStar">*</span></p>
         <div className="dropdown">
-          <button className="dropbtn" onClick={toggleDropdown}>
+          <button type="button" className="dropbtn" onClick={toggleDropdown}>
             {formData.state || 'Choose ▾'}
           </button>
           <div className="dropdown-content">
@@ -159,7 +178,10 @@ function FifthPage () {
         </div>
         <span className="errorMessage">* This is required input.</span>
       </div>
-    </div>
+      <div className="buttonContainer">
+        <button type='submit'>Next</button>
+      </div>
+    </form>
   )
 }
 

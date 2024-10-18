@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import '../css/seventhPageForGraduate.css'
 import { formDataStore } from '../formDataStore'
-
+import { useNavigate } from 'react-router-dom'
 function GraduatePage () {
   const [formData, setFormData] = useState(formDataStore.sevenThPageForGraduateForm)
+  const [specifieduniversity, setSpecifieduniversity] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
     })
+  }
+  const handleOtherInputChange = (e) => {
+    const { value } = e.target
+    setSpecifieduniversity(value)
   }
 
   const handleDropdownChange = (name, value) => {
@@ -23,6 +28,25 @@ function GraduatePage () {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase())
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (e.target.checkValidity()) {
+      setFormData({
+        ...formData,
+        university: formData.university === 'Other' && specifieduniversity ? specifieduniversity : formData.university
+      })
+      formDataStore.sevenThPageForGraduateForm = formData
+      console.log(formDataStore.sevenThPageForGraduateForm)
+      navigate('/eighthPage')
+    } else {
+      const firstInvalidElement = e.target.querySelector(':invalid')
+      if (firstInvalidElement) {
+        firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        firstInvalidElement.focus()
+      }
+    }
   }
 
   useEffect(() => {
@@ -67,7 +91,18 @@ function GraduatePage () {
 
   const selectOption = (e, name, value) => {
     e.preventDefault()
-    handleDropdownChange(name, value)
+    if (value === 'Other') {
+      setFormData({
+        ...formData,
+        [name]: 'Other'
+      })
+      document.querySelector('.other-input').style.display = 'block'
+    } else {
+      handleDropdownChange(name, value)
+      document.querySelector('.other-input').style.display = 'none'
+      setSpecifieduniversity('')
+    }
+
     const dropdownContent = e.target.closest('.dropdown-content')
     dropdownContent.classList.remove('show')
   }
@@ -117,12 +152,12 @@ function GraduatePage () {
   ].filter((option) => option.toLowerCase().includes(searchTerm))
 
   return (
-    <div className="bluePrint">
+    <form className="bluePrint" onSubmit={handleSubmit}>
       <div className="firstsectionBP">
         <div className="head"></div>
         <div className="title">Contact Form</div>
         <div className="information">
-          <p className="emailInformation">xxx@gamil.com</p>
+          <p className="emailInformation">Welcome to VicWise</p>
         </div>
         <div>
           <p className="required">* Indicates required question</p>
@@ -149,7 +184,7 @@ function GraduatePage () {
       <div className="thirdsectionBP">
         <p className="Graduate">Graduate from University/College/Institute<span className="specialStar">*</span></p>
         <div className="dropdown">
-          <button className="dropbtn" onClick={toggleDropdown}>
+          <button type="button" className="dropbtn" onClick={toggleDropdown}>
             {formData.university || 'Choose ▾'}
           </button>
           <div className="dropdown-content">
@@ -165,6 +200,14 @@ function GraduatePage () {
             ))}
           </div>
         </div>
+        <input
+          type="text"
+          placeholder="Please specify your University"
+          className="other-input"
+          style={{ display: formData.university === 'Other' ? 'block' : 'none' }}
+          value={specifieduniversity}
+          onChange={handleOtherInputChange}
+        />
       </div>
 
       <div className="fourthsectionBP">
@@ -226,7 +269,10 @@ function GraduatePage () {
         </div>
         <span className="errorMessage">* This is required input.</span>
       </div>
-    </div>
+      <div className="buttonContainer">
+        <button type='submit'>Next</button>
+      </div>
+    </form>
   )
 }
 
