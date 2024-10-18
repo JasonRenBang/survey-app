@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import '../css/seventhPageForWork.css'
 import { formDataStore } from '../formDataStore'
-
+import { useNavigate } from 'react-router-dom'
 function SeventhPageForWork () {
   const [formData, setFormData] = useState(formDataStore.sevenThPageForWorkForm)
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -12,7 +12,9 @@ function SeventhPageForWork () {
       [name]: value,
     })
   }
-
+  const handleNavigation = () => {
+    navigate('/eighthPage')
+  }
   useEffect(() => {
     const inputJobs = document.querySelectorAll('.inputJob')
     const inputContainers = document.querySelectorAll('.inputContainer')
@@ -101,6 +103,9 @@ function SeventhPageForWork () {
           />
         </div>
         <span className="errorMessage">* This is required input.</span>
+      </div>
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
       </div>
     </div>
   )

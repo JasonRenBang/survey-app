@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../css/firstPage.css'
 import { formDataStore } from '../formDataStore'
 
 function FirstPage () {
   const [formData, setFormData] = useState(formDataStore.firstForm)
 
+  const navigate = useNavigate()
   useEffect(() => {
     const inputEmails = document.querySelectorAll('.inputEmail')
     const inputContainers = document.querySelectorAll('.inputContainer')
@@ -47,7 +49,9 @@ function FirstPage () {
       [name]: value,
     })
   }
-
+  const handleNavigation = () => {
+    navigate('/secondPage')
+  }
   return (
     <div className="bluePrint">
       <div className="firstsectionBP">
@@ -105,6 +109,10 @@ function FirstPage () {
           />
         </div>
         <span className="errorMessage">* This is required input.</span>
+      </div>
+
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
       </div>
     </div>
   )

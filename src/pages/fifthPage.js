@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import '../css/fifthPage.css'
 import { formDataStore } from '../formDataStore'
+import { useNavigate } from 'react-router-dom'
 function FifthPage () {
   const [formData, setFormData] = useState(formDataStore.fifthForm)
   const [searchTerm, setSearchTerm] = useState('')
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -23,7 +24,9 @@ function FifthPage () {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
-
+  const handleNavigation = () => {
+    navigate('/sixthPage')
+  }
   useEffect(() => {
     const inputAddresses = document.querySelectorAll('.inputAddress')
     const inputContainers = document.querySelectorAll('.inputContainer')
@@ -158,6 +161,9 @@ function FifthPage () {
           />
         </div>
         <span className="errorMessage">* This is required input.</span>
+      </div>
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
       </div>
     </div>
   )

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import '../css/forthPage.css'
 import { formDataStore } from '../formDataStore'
+import { useNavigate } from 'react-router-dom'
 function ForthPage () {
   const [formData, setFormData] = useState(formDataStore.forthForm)
   const [searchTerm, setSearchTerm] = useState('')
-
+  const navigate = useNavigate()
   const handleDropdownChange = (name, value) => {
     setFormData({
       ...formData,
@@ -35,7 +36,9 @@ function ForthPage () {
     'Citizen',
     'Other'
   ].filter((option) => option.toLowerCase().includes(searchTerm))
-
+  const handleNavigation = () => {
+    navigate('/fifthPage')
+  }
   return (
     <div className="bluePrint">
       <div className="firstsectionBP">
@@ -68,6 +71,9 @@ function ForthPage () {
             ))}
           </div>
         </div>
+      </div>
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
       </div>
     </div>
   )

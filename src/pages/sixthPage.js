@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import '../css/sixthPage.css'
+import { useNavigate } from 'react-router-dom'
 import { formDataStore } from '../formDataStore'
 
 function SixthPage () {
   const [formData, setFormData] = useState(formDataStore.sixthForm)
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { value } = e.target
     setFormData({
@@ -12,7 +13,15 @@ function SixthPage () {
       status: value,
     })
   }
-
+  const handleNavigation = () => {
+    if (formData.status === 'student') {
+      navigate('/seventhPageForStudent')
+    } else if (formData.status === 'graduate') {
+      navigate('/seventhPageForGraduate')
+    } else if (formData.status === 'working') {
+      navigate('/seventhPageForWork')
+    }
+  }
   return (
     <div className="bluePrint">
       <div className="firstsectionBP">
@@ -64,6 +73,9 @@ function SixthPage () {
             </label>
           </form>
         </div>
+      </div>
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
       </div>
     </div>
   )

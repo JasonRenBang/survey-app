@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import '../css/seventhPageForGraduate.css'
 import { formDataStore } from '../formDataStore'
-
+import { useNavigate } from 'react-router-dom'
 function GraduatePage () {
   const [formData, setFormData] = useState(formDataStore.sevenThPageForGraduateForm)
   const [searchTerm, setSearchTerm] = useState('')
-
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -24,7 +24,9 @@ function GraduatePage () {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
-
+  const handleNavigation = () => {
+    navigate('/eighthPage')
+  }
   useEffect(() => {
     const inputCourses = document.querySelectorAll('.inputCourse')
     const inputContainers = document.querySelectorAll('.inputContainer')
@@ -225,6 +227,9 @@ function GraduatePage () {
           />
         </div>
         <span className="errorMessage">* This is required input.</span>
+      </div>
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
       </div>
     </div>
   )

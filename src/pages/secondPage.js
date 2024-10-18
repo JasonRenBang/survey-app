@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../css/secondPage.css'
 import { formDataStore } from '../formDataStore'
 
@@ -6,6 +7,7 @@ import { formDataStore } from '../formDataStore'
 function SecondPage () {
   const [formData, setFormData] = useState(formDataStore.secondForm)
   const [searchTerm, setSearchTerm] = useState('')
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData({
@@ -77,6 +79,9 @@ function SecondPage () {
   const pronounOptions = ['He/Him', 'She/Her', 'They/Them', 'Rather Not Say', 'Other'].filter((option) =>
     option.toLowerCase().includes(searchTerm)
   )
+  const handleNavigation = () => {
+    navigate('/thirdPage')
+  }
   return (
     <div className="bluePrint">
       <div className="firstsectionBP">
@@ -215,6 +220,11 @@ function SecondPage () {
           </div>
         </div>
       </div>
+
+      <div className="buttonContainer">
+        <button onClick={handleNavigation}>Next</button>
+      </div>
+
     </div>
   )
 }
