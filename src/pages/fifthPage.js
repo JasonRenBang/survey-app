@@ -24,9 +24,7 @@ function FifthPage () {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase())
   }
-  const handleNavigation = () => {
 
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
